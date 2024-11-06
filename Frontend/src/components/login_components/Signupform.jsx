@@ -6,9 +6,9 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import { BiUser } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, reset } from '../features/auth/authSlice';
+//import { register, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../components/Spinner';
+//import Spinner from '../components/Spinner';
 
 const AuthForm = ({ onShowSignup, isSignup }) => {
     const [formData, setFormData] = useState({
