@@ -20,8 +20,31 @@ def activate_account(request, uidb64, token):
     else:
         return HttpResponse("Activation link is invalid!")'''
 
-from django.shortcuts import render
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.exceptions import AuthenticationFailed
 
-# Create your views here.
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        # Check if the user is active
+        if not user.is_active:
+            raise AuthenticationFailed(_('User account is inactive.'))
 
+        token = super().get_token(user)
+        # Add custom claims
+        token['account_type'] = user.account_type
+        token['is_active'] = user.is_active
+        token['is_staff'] = user.is_staff
+        token['is_superuser'] = user.is_superuser
+        token['full_name'] = f"{user.first_name} {user.last_name}"
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    permission_classes = [AllowAny]
+    serializer_class = MyTokenObtainPairSerializer
+
+class MyTokenRefreshView(TokenRefreshView):
+    permission_classes = [AllowAny]
 
