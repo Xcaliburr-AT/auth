@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout, reset } from '../../features/auth/authSlice'
+import { logout, reset } from '../../../features/auth/authSlice'
 import { toast } from 'react-toastify'
 
 const Nav = () => {

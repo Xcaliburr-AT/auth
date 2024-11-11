@@ -33,7 +33,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             raise AuthenticationFailed(_('User account is inactive.'))
 
         token = super().get_token(user)
-        # Add custom claims
         token['account_type'] = user.account_type
         token['is_active'] = user.is_active
         token['is_staff'] = user.is_staff
