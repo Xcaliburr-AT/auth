@@ -1,6 +1,4 @@
 """
-URL configuration for journalBullet project.
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
@@ -19,9 +17,15 @@ from django.urls import path, include
 from users.views import MyTokenObtainPairView, MyTokenRefreshView
 
 urlpatterns = [
+    # Admin
     path("admin/", admin.site.urls),
+
+    # Auth djoser
     path("api/v1/auth/", include('djoser.urls')),
     path("api/v1/auth/", include('djoser.urls.jwt')),
-    path('api/v1/auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  # Custom URL
-    path('api/v1/auth/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),  # Custom URL
+    path('api/v1/auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/auth/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),
+
+    # core'
+    path('api/v1/', include('core.urls')),
 ]
